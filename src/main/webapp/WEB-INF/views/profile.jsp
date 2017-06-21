@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -55,7 +55,7 @@
                             <div class="miniblock clearfix">
                                 <div class="miniblock">
                                     <div class="label fl_l">День рожденья:</div>
-                                    <div class="labeled fl_l ">${person.birthday} </div>
+                                    <div class="labeled fl_l "><fmt:formatDate type="date" value="${person.birthday.time}" /></div>
                                 </div>
                                 <div class="miniblock">
                                     <div class="label fl_l">Родной город:</div>

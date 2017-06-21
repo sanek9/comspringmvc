@@ -142,12 +142,12 @@
                             <div class="post">
                                     <div class="post_panel">
                                         <%--<c:out value="${mess.date.time}"/>--%>
-                                        <label class="time">${mess.date.time}</label>
-                                        <%--<fmt:formatDate  value="${mess.date.time}" type="date" dateStyle="short" />--%>
+                                        <label class="time">
+                                            <fmt:formatDate  value="${mess.date.time}" type="both" dateStyle = "long" timeStyle = "medium" />
+                                        </label>
                                         <a class="del_post" href="/del_message/${mess.messageId}">X</a>
                                     </div>
                                     <div class="post_aera">${mess.message}</div>
-
                             </div>
                         </c:forEach>
 

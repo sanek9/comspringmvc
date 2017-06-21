@@ -43,7 +43,7 @@
         <beans:property name="createTableOnStartup" value="false"/>
         <beans:property name="dataSource" ref="dataSource"/>
     </beans:bean>
-    <beans:bean class="com.myspringmvc.entity.HibernatePersonDetailsManager" id="hibernatePersonDetailsManager">
+    <beans:bean class="com.myspringmvc.core.HibernatePersonDetailsManager" id="hibernatePersonDetailsManager">
         <!--<beans:property name="sessionFactory" ref="sessionFactory"/>-->
     </beans:bean>
 

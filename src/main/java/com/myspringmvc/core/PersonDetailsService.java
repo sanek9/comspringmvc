@@ -1,4 +1,6 @@
-package com.myspringmvc.entity;
+package com.myspringmvc.core;
+
+import com.myspringmvc.entity.Person;
 
 /**
  * Created by sanek9 on 16.06.17.

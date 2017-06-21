@@ -5,7 +5,7 @@ import javax.validation.Valid;
 
 import com.myspringmvc.entity.Message;
 import com.myspringmvc.entity.Person;
-import com.myspringmvc.entity.PersonDetailsManager;
+import com.myspringmvc.core.PersonDetailsManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Random;
 
@@ -37,13 +36,7 @@ import java.util.Random;
 public class MainController {
     protected Log logger = LogFactory.getLog(getClass());
     @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Autowired
     private PersonDetailsManager personDetailsManager;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
 //    @Autowired
 //    SessionFactory sessionFactory;
@@ -98,36 +91,7 @@ public class MainController {
         return "redirect:/feed";
     }
 
-    @RequestMapping(value = "/login")
-    public String login(){
 
-        SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        logger.info(sessionFactory);
-        logger.info(userDetailsService);
-//        System.out.println(sessionFactory);
-        System.out.println(userDetailsService);
-        System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal().getClass());
-        return "redirect:/register";
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public ModelAndView register(){
-
-        return new ModelAndView("reg", "person", new Person());
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(@Valid  @ModelAttribute("person") Person person, BindingResult bindingResult){
-        if (bindingResult.hasErrors()) {
-            return "reg";
-        }
-        System.out.println("register");
-        personDetailsManager.registerPerson(person);
-        Authentication request = new UsernamePasswordAuthenticationToken(person.getPhone(), person.getPassword());
-        Authentication res = authenticationManager.authenticate(request);
-        SecurityContextHolder.getContext().setAuthentication(res);
-        return "redirect:/feed";
-    }
 
 
 }

@@ -1,12 +1,13 @@
-package com.myspringmvc.entity;
+package com.myspringmvc.core;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.myspringmvc.entity.Message;
+import com.myspringmvc.entity.Person;
+import com.myspringmvc.entity.Shadow;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;

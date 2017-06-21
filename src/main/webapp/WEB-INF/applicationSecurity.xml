@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+    <!--<http auto-config="true">-->
+        <!--<intercept-url pattern="/**" access=""/>-->
+    <!--</http>-->
+    <!--<debug/>-->
+    <http>
+        <intercept-url pattern="/feed" access="isAuthenticated()" />
+        <intercept-url pattern="/login" access="permitAll()"/>
+        <intercept-url pattern="/register" access="permitAll()"/>
+        <intercept-url pattern="/" access="permitAll()"/>
+
+
+        <form-login
+
+            login-page="/login"
+            default-target-url="/feed"
+            authentication-failure-url="/login?error=true"
+        />
+        <logout logout-success-url="/login" logout-url="/logout"/>
+        <!--<remember-me data-source-ref="dataSource"/>-->
+        <!--<remember-me services-ref="rememberMeServices"/>-->
+
+    </http>
+
+    <beans:bean id="rememberMeServices" class=
+            "org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices" autowire="constructor">
+        <beans:constructor-arg  value="springRocks"/>
+        <!--<beans:constructor-arg  ref="userDetailsService"/>-->
+        <beans:constructor-arg ref="jdbcTokenRepository"/>
+        <beans:property name="alwaysRemember" value="true"/>
+    </beans:bean>
+    <beans:bean id="jdbcTokenRepository"
+                class="org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl">
+        <beans:property name="createTableOnStartup" value="false"/>
+        <beans:property name="dataSource" ref="dataSource"/>
+    </beans:bean>
+    <beans:bean class="com.myspringmvc.entity.HibernatePersonDetailsManager" id="hibernatePersonDetailsManager">
+        <!--<beans:property name="sessionFactory" ref="sessionFactory"/>-->
+    </beans:bean>
+
+
+    <authentication-manager alias="authenticationManager">
+        <!--<authentication-provider user-service-ref="userService"/>-->
+        <!--<authentication-provider ref="rememberMeAuthenticationProvider"/>-->
+        <authentication-provider user-service-ref='hibernatePersonDetailsManager'>
+
+        <!--<authentication-provider>-->
+            <!--<password-encoder ref="bcrypt"/>-->
+            <!--<jdbc-user-service data-source-ref="dataSource"  />-->
+
+        </authentication-provider>
+    </authentication-manager>
+
+    <beans:bean id="casAuthenticationProvider"
+                class="com.myspringmvc.CasAuthenticationProvider">
+        <!--<beans:property name="dataSource" ref="dataSource"/>-->
+    </beans:bean>
+    <!--<beans:bean id="jdbcDao"-->
+                <!--class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">-->
+        <!--<beans:property name="dataSource" ref="dataSource"/>-->
+    <!--</beans:bean>-->
+    <!--<beans:bean id="myJdbcDao"-->
+                <!--class="com.myspringmvc.MyJdbcDaoImpl">-->
+        <!--<beans:property name="dataSource" ref="dataSource"/>-->
+    <!--</beans:bean>-->
+
+    <!--<beans:bean id="userDetailsService"-->
+                <!--class="org.springframework.security.provisioning.JdbcUserDetailsManager">-->
+        <!--<beans:property name="dataSource" ref="dataSource" />-->
+        <!--<beans:property name="authenticationManager" ref="authenticationManager" />-->
+        <!--<beans:property name="enableAuthorities" value="true"/>-->
+    <!--</beans:bean>-->
+    <beans:bean id="bcrypt" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <beans:constructor-arg name="strength" value="11"/>
+    </beans:bean>
+    <!--<beans:bean id="userService" class="com.myspringmvc.UserService"/>-->
+
+</beans:beans>

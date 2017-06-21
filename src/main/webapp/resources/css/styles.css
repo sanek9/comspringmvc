@@ -1,0 +1,255 @@
+body {
+	color: #8f8f8f;
+	font: 12px Tahoma, sans-serif;
+	background: #f8f8f8 url(../images/bg.png);
+   
+	margin: 20px 15%;
+}
+input{
+	background-color: #f8f8f8;
+	border: 1px solid #e7e7e7;
+	height: 30px;
+	color: #b2b2b2;
+    padding-left: 8px;
+    padding-right: 8px;
+	vertical-align: top;
+}
+textarea{
+    background-color: #f3f3f3;
+	border: 1px solid #e7e7e7;
+	/*height: 30px;*/
+	color: #b2b2b2;
+    padding-left: 8px;
+    padding-right: 8px;
+	vertical-align: top;
+}
+#pan input{
+    padding: 0 10px;
+    margin: 8px;
+}
+button {
+	color: #fff;
+	background-color: #29c5e6;
+	border: none;
+	height: 24px;
+    padding: 0 16px;
+    margin-top: 8px;
+	font-family: 'Oswald', sans-serif;
+    transition: 0.2s;
+}
+
+#pan button {
+	height: 32px;
+    margin: 8px;
+    padding: 0 16px;
+
+}
+button:hover{
+    background: #d9ed69;
+	color: #8f8f8f;
+    cursor: pointer;
+}
+button:active{
+    background: #c464bd;
+    color: #fff;
+}
+#pan{
+    padding: 5px;
+    background: #efefef;
+    border: 1px solid #e7e7e7;
+}
+#pan:after {
+  content: "."; /* добавить содержимое: "." */
+  display: block;  /* сделать блоком, т.к. inline не может иметь clear */
+  clear: both;  /* с обеих сторон clear */
+  visibility: hidden; /* сделать невидимым, зачем нам точка внизу? */
+  height: 0;  /* сделать высоту 0, чтобы не занимал место */
+}
+#navig{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border: 1px solid #e7e7e7;
+    margin: 10px;
+    
+}
+#page{
+    display: flex;
+    align-items: flex-start;
+    margin: 20px 0;
+    
+}
+#navig>a{
+    color: #8f8f8f;
+	background-color: #f3f3f3;
+	border: none;
+    
+	
+    padding: 16px 30px;
+    margin: 0 0px;
+	font: 14px 'Oswald', sans-serif;
+    text-decoration: none;
+    
+    border-top: 1px solid #e7e7e7
+}
+#navig>a:hover{
+    background: #29c5e6;
+	color: #fff;
+    cursor: pointer;
+}
+#navig>a:active{
+    background: #c464bd;
+}
+#inform{
+    display: block;
+    margin: 20px;
+    flex-direction: column;
+  /*  background: #e7e7e7*/
+    
+}
+#inform h4 {
+    border-bottom: none;
+    height: 4px;
+    border-bottom: 1px solid #DAE1E8;
+    margin-bottom: 3px;
+}
+h4 b {
+    background: #f8f8f8 url(../images/bg.png);;
+    padding: 0px 6px;
+}
+h4 {
+    border-bottom: 1px solid #f8f8f8;
+    color: #768089;
+    font-size: 11px;
+    font-weight: bold;
+    margin: 0px;
+    padding: 0px 0px 3px;
+}
+#inform h4:first-child{
+    height: auto;
+    font-size: 20px;
+    padding-bottom: 20px;
+}
+.label {
+    width: 135px;
+    color: #777;
+}
+.labeled {
+    width: 250px;
+    overflow: hidden;
+}
+
+.fl_l{
+    float: left;
+}
+.fl_r{
+    float: right;
+}
+.miniblock {
+    clear: both;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    
+}
+.clearfix:after {
+  content: "."; /* добавить содержимое: "." */
+  display: block;  /* сделать блоком, т.к. inline не может иметь clear */
+  clear: both;  /* с обеих сторон clear */
+  visibility: hidden; /* сделать невидимым, зачем нам точка внизу? */
+  height: 0;  /* сделать высоту 0, чтобы не занимал место */
+}
+#wall {
+    margin-top: 32px;
+}
+.createpost{
+    
+}
+.new_post_ta{
+    width: 100%;
+    box-sizing: border-box;
+    transition: 0.2s;
+    
+}
+.new_post {
+    margin-top: 8px;
+    padding: 16px;
+    border: 1px solid #e7e7e7;
+    background: #efefef;
+    transition: 0.2s;
+}
+.post {
+    margin-top: 8px;
+    /*padding: 16px;*/
+    border: 1px solid #e7e7e7;
+    background: #efefef;
+    transition: 0.2s;
+}
+.post_aera{
+    margin: 16px;
+}
+.post .post_panel{
+    display: none;
+    margin: 4px;
+}
+.post .time{
+    font: 10px Tahoma, sans-serif;
+    float: left;
+}
+.post .del_post{
+    float: right;
+    color: #8f8f8f;
+    background-color: #f3f3f3;
+    text-decoration: none;
+    border: 1px solid #e7e7e7;
+    height: 11px;
+    width: 11px;
+    font: 10px Tahoma, sans-serif;
+    /* font-family: 'Oswald', sans-serif; */
+    transition: 0.2s;
+    text-align: center;
+}
+.post:hover .post_panel{
+    display: block;
+}
+
+#reg{
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.img{
+    padding: 8px;
+    background: #efefef;
+    border: 1px solid #e7e7e7;
+}
+.separ{
+    width: 100%;
+    height: 4px;
+    border-bottom: 1px solid #DAE1E8;
+    margin-top: 6px;
+    margin-bottom: 3px;
+}
+.line{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 8px;
+}
+.reglabel{
+    width: 135px;
+    color: #777;
+}
+.error{
+    /* position: absolute; */
+    /* right: 29%; */
+    z-index: 1;
+    border-style: solid;
+    border-radius: 4px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 3px;
+    padding-right: 3px;
+
+}

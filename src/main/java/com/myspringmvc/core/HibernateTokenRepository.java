@@ -20,10 +20,6 @@ public class HibernateTokenRepository implements PersistentTokenRepository {
 
     @Transactional
     public void createNewToken(PersistentRememberMeToken token) {
-//        getJdbcTemplate().update(insertTokenSql, token.getUsername(), token.getSeries(),
-//                token.getTokenValue(), token.getDate());
-
-        System.out.println("createNewToken.series "+ token.getSeries());
         RememberToken rememberToken = new RememberToken();
         rememberToken.setDate(token.getDate());
         rememberToken.setSeries(token.getSeries());
@@ -45,7 +41,6 @@ public class HibernateTokenRepository implements PersistentTokenRepository {
 
     @Transactional(readOnly = true)
     public PersistentRememberMeToken getTokenForSeries(String seriesId) {
-//        System.out.println("getTokenForSeries.seriesId "+ seriesId);
         RememberToken rememberToken = entityManager.find(RememberToken.class, seriesId);
         if(rememberToken!=null){
             return new PersistentRememberMeToken(String.valueOf(rememberToken.getPerson().getPersonId()),
@@ -56,7 +51,6 @@ public class HibernateTokenRepository implements PersistentTokenRepository {
     }
     @Transactional
     public void removeUserTokens(String username) {
-        System.out.println("removeUserTokens.username: "+ username);
         Query query = entityManager.createQuery("DELETE FROM RememberToken r where r.person.personId = :id");
         query.setParameter("id", Long.valueOf(username));
         query.executeUpdate();

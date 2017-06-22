@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+    <!-- Base Define -->
+    <definition name="base.definition"
+                template="/WEB-INF/views/layouts/classic.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header" value="/WEB-INF/views/basefragments/_header.jsp" />
+        <put-attribute name="body" value="" />
+        <put-attribute name="footer" value="/WEB-INF/views/basefragments/_footer.jsp" />
+    </definition>
+
+
+    <!-- Home Page -->
+    <definition name="body.definition" extends="base.definition">
+        <put-attribute name="title" value="Home Page" />
+        <put-attribute name="body" value="/WEB-INF/views/bodyfragments/_body.jsp" />
+        <put-attribute name="wrapper" value="" />
+        <put-attribute name="face" value="" />
+        <put-attribute name="menu" value="" />
+        <put-attribute name="wall" value="" />
+    </definition>
+    <definition name="profilePage" extends="body.definition">
+        <put-attribute name="title" value="Home Page" />
+        <put-attribute name="wall" value="/WEB-INF/views/bodyfragments/_wall.jsp" cascade="true"/>
+        <put-attribute name="face" value="/WEB-INF/views/bodyfragments/_face.jsp" cascade="true"/>
+        <put-attribute name="menu" value="/WEB-INF/views/bodyfragments/_menu.jsp" cascade="true" />
+        <put-attribute name="wrapper" value="/WEB-INF/views/bodyfragments/_wrapper.jsp" cascade="true"/>
+    </definition>
+    <definition name="registerPage" extends="base.definition">
+        <put-attribute name="title" value="Home Page" />
+        <put-attribute name="body" value="/WEB-INF/views/bodyfragments/_reg.jsp" />
+    </definition>
+
+    <!--&lt;!&ndash; ContactUs Page &ndash;&gt;-->
+    <!--<definition name="contactusPage" extends="base.definition">-->
+        <!--<put-attribute name="title" value="Contact Us" />-->
+        <!--<put-attribute name="body" value="/WEB-INF/bodyfragments/_contactus.jsp" />-->
+    <!--</definition>-->
+
+
+
+</tiles-definitions>

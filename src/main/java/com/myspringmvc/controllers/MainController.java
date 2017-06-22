@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -47,15 +48,28 @@ public class MainController {
                 (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Person person = personDetailsManager.findById(userDetails.getUsername());
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("profile");
+        modelAndView.setViewName("profilePage");
         modelAndView.addObject("person", person);
         modelAndView.addObject("message", new Message());
         System.out.println("person_length: "+person.getMessages().size());
         return modelAndView;
     }
 
+    @RequestMapping(value = "/id{id}")
+    public ModelAndView getPersonPage(@PathVariable String id, Principal p){
+        System.out.println("req_id: "+id);
+
+        try {
+            Person person = personDetailsManager.findById(id);
+            return new ModelAndView("person_page", "person", person);
+        }catch (UsernameNotFoundException e){
+            return null;
+        }
+
+    }
     @RequestMapping(value = "/")
     public String toFeed(){
+
 
         return "redirect:/feed";
     }

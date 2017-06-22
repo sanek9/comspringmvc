@@ -9,19 +9,16 @@
 <title>Whitesquare</title>
 <link rel="stylesheet" href="<c:url value="/resources/css/styles.css"/>" type="text/css" />
 </head>
+<%--<% Person p = (Person) session.getAttribute("person");--%>
+    <%--System.out.println("atribute user: " + p);%>--%>
 <body>
+    <style> 
+        
+    </style>
     <div>
         <div>
             <div id="pan">
                 <img src="<c:url value="/resources/images/logo.png"/>" style="float: left">
-              <!--  <form action="/asd/" >
-                    <input type="text" name="q" placeholder="логин" >
-                    <input type="password" name="q" placeholder="пароль" >
-                    <button type="submit" >Вход</button>
-                </form>
-                <form class="panel" action="reg.html">
-                    <button type="submit" >Регистрация</button>
-                </form>-->
                 <form action="logout" method="post" class="panel fl_r" >
                     <button type="submit" >Выход</button>
                     <input type="hidden"
@@ -121,18 +118,6 @@
                             
 </script>
 
-                        <div class="new_post">
-
-                            <form:form method="POST" action="add_message" commandName="message">
-                                <div onmouseover="new_post_focus()" onmouseout="new_post_blur()">
-                                        <%--onblur="new_post_blur()" onfocus="new_post_focus()"--%>
-                                    <form:textarea path="message" id="new_post_input" class="new_post_ta" type="text"
-
-                                                   placeholder="Добавить запись" ></form:textarea>
-                                    <button id="new_post_submit" type="submit" style="display:none">Отправить</button>
-                                </div>
-                            </form:form>
-                        </div>
                         <c:forEach var="mess" items="${person.messages}">
                             <div class="post">
                                     <div class="post_panel">
@@ -140,7 +125,6 @@
                                         <label class="time">
                                             <fmt:formatDate  value="${mess.date.time}" type="both" dateStyle = "long" timeStyle = "medium" />
                                         </label>
-                                        <a class="del_post" href="/del_message/${mess.messageId}">X</a>
                                     </div>
                                     <div class="post_aera">${mess.message}</div>
                             </div>

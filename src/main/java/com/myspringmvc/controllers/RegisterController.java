@@ -42,7 +42,7 @@ public class RegisterController {
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public ModelAndView register(){
 
-        return new ModelAndView("reg", "person", new Person());
+        return new ModelAndView("registerPage", "person", new Person());
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)

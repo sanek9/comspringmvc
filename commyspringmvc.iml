@@ -21,9 +21,11 @@
     <facet type="hibernate" name="Hibernate">
       <configuration>
         <datasource-map>
+          <unit-entry name="hibernate.cfg.xml" value="ff8484a9-1d14-420e-8a79-9a94c05daeb1" />
           <unit-entry name="sessionFactory" value="ff8484a9-1d14-420e-8a79-9a94c05daeb1" />
         </datasource-map>
         <naming-strategy-map />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/hibernate.cfg.xml" />
       </configuration>
     </facet>
   </component>
@@ -59,6 +61,8 @@
     <orderEntry type="library" name="Maven: aopalliance:aopalliance:1.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-core:4.2.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-config:4.2.3.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-taglibs:4.2.3.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-acl:4.2.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: javax.servlet:jstl:1.2" level="project" />
     <orderEntry type="library" name="Maven: org.postgresql:postgresql:9.4.1212" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-core:5.2.2.Final" level="project" />
@@ -79,5 +83,18 @@
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-validator:5.4.1.Final" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final" level="project" />
     <orderEntry type="library" name="Maven: javax.validation:validation-api:1.1.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tiles:tiles-api:3.0.7" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.6" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tiles:tiles-request-api:1.0.6" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tiles:tiles-core:3.0.7" level="project" />
+    <orderEntry type="library" name="Maven: commons-digester:commons-digester:2.0" level="project" />
+    <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils:1.8.0" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:jcl-over-slf4j:1.7.6" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tiles:tiles-servlet:3.0.7" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tiles:tiles-request-servlet:1.0.6" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tiles:tiles-jsp:3.0.7" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tiles:tiles-template:3.0.7" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tiles:tiles-autotag-core-runtime:1.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tiles:tiles-request-jsp:1.0.6" level="project" />
   </component>
 </module>

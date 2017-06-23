@@ -9,6 +9,7 @@
             /WEB-INF/mysql-datasource.xml
             /WEB-INF/applicationContext.xml
             /WEB-INF/applicationSecurity.xml
+            /WEB-INF/thymeleafConfig.xml
             /WEB-INF/dispatcher-servlet.xml
         </param-value>
     </context-param>

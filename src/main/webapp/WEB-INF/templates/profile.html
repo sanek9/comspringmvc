@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="templates :: common_header">
+    <link rel="stylesheet" href="../../resources/css/styles.css" />
+</head>
+<body>
+    <div>
+        <div>
+            <div th:replace="templates :: header">
+            </div>
+            <div id="page">
+                <div id="navig" th:replace="templates :: navig">
+                    <a href="">Фотографии</a>
+                    <a href="">Друзья</a>
+                    <a href="">Группы</a>
+                    <a href="">Аудиозаписи</a>
+                    <a href="">Видеозаписи</a>
+                </div>
+                <div class="wrapper">
+                    <div class="clearfix">
+                        <div class="img fl_l">
+                            <img th:src="@{/resources/images/cot.jpg}" width="240">
+                        </div>
+                        <div id="inform" class="fl_l">
+                            <h4><b>
+                                <div th:text="${person.firstName}+' '+${person.lastName}">Имя Фамилия</div>
+                                </b></h4>
+                            <div class="miniblock clearfix">
+                                <div class="miniblock">
+                                    <div class="label fl_l">День рожденья:</div>
+                                    <div class="labeled fl_l "
+                                         th:text="${#calendars.format(person.birthday, 'dd MMM yyyy')}">01.01.2000</div>
+                                </div>
+                                <div class="miniblock">
+                                    <div class="label fl_l">Родной город:</div>
+                                    <div class="labeled fl_l ">Молодечно</div>
+                                </div>
+                                <div class="miniblock">
+                                    <div class="label fl_l">Место учебы:</div>
+                                    <div class="labeled fl_l ">ПГУ</div>
+                                </div>
+                            </div>
+                            <h4><b>Контактная информация</b></h4>
+                            <div class="miniblock clearfix">
+                                <div class="miniblock">
+                                    <div class="label fl_l">Город:</div>
+                                    <div class="labeled fl_l ">Новополоцк</div>
+                                </div>
+                                <div class="miniblock fl_l" >
+                                    <div class="label fl_l">Моб. телефон:</div>
+                                    <div class="labeled fl_l " th:text="${person.phone}">1234567890</div>
+                                </div>
+                                <div class="miniblock fl_l" >
+                                    <div class="label fl_l">Доп. телефон:</div>
+                                    <div class="labeled fl_l ">Информация скрыта</div>
+                                </div>
+                            </div>
+                            <h4><b>Образование</b></h4>
+                            <div class="miniblock clearfix">
+                                <div class="miniblock">
+                                    <div class="label fl_l">Вуз:</div>
+                                    <div class="labeled fl_l ">ПГУ</div>
+                                </div>
+                                <div class="miniblock fl_l" >
+                                    <div class="label fl_l">Школа:</div>
+                                    <div class="labeled fl_l ">Средняя школа №2</div>
+                                </div>
+                                <div class="miniblock fl_l" >
+                                    <div class="label fl_l">Колледж:</div>
+                                    <div class="labeled fl_l ">МГПТК</div>
+                                </div>
+                            </div>
+                            <h4><b>Жизненная позиция</b></h4>
+                            <div class="miniblock clearfix">
+                                <div class="miniblock">
+                                    <div class="label fl_l">Мировоззрение:</div>
+                                    <div class="labeled fl_l ">Православие</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div id="wall">
+                            <div th:replace="wall :: newpost (${message})"></div>
+                            <div th:if="${!#lists.isEmpty(${person.messages})}"
+                                 th:replace="wall :: posts (${person.messages})"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

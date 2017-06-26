@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="templates :: common_header">
     <link rel="stylesheet" href="../../resources/css/styles.css" />
 </head>
@@ -79,10 +79,20 @@
                             </div>
                         </div>
                     </div>
+                    <sec:authorize ifAllGranted="ROLE_SUPERVISOR" >
+
+                    </sec:authorize>
                         <div id="wall">
-                            <div th:replace="wall :: newpost (${message})"></div>
-                            <div th:if="${!#lists.isEmpty(${person.messages})}"
-                                 th:replace="wall :: posts (${person.messages})"></div>
+
+
+                            <div sec:authorize="hasPermission(#vars['person'], 'write')"
+                                 th:replace="wall :: newpost (${message})"></div>
+                            <div sec:authorize="hasPermission(#vars['person'], 'write')"
+                                 th:if="${!#lists.isEmpty(${person.messages})}"
+                                 th:replace="wall :: posts (${person.messages},true)"></div >
+                            <div sec:authorize="!hasPermission(#vars['person'], 'write')"
+                                 th:if="${!#lists.isEmpty(${person.messages})}"
+                                 th:replace="wall :: posts (${person.messages},false)"></div >
                         </div>
                     </div>
                 </div>

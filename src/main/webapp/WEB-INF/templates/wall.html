@@ -25,14 +25,16 @@
                         }
                     </script>
                 </div>
-                <!--@thymesVar id="mess" type="com.myspringmvc.entity.Message"-->
-                <div th:fragment="posts ( messages)" class="post" th:each="mess : ${messages}">
+
+                <div th:fragment="posts ( messages, delete)" class="post" th:each="mess : ${messages}">
+                    <!--@thymesVar id="mess" type="com.myspringmvc.entity.Message"-->
                     <div class="post_panel">
                         <div class="time"
                              th:text="${#calendars.format(mess.date, 'dd MMM yyyy HH:mm' )}">
                             01 jan 1200 12:37
                         </div>
                         <a class="del_post"
+                           th:if="${delete == true}"
                            th:href="@{/del_message/{id}(id=${mess.messageId})}">X</a>
                     </div>
                     <div class="post_aera" th:text="${mess.message}">hello</div>

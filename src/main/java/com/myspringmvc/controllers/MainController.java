@@ -70,10 +70,10 @@ public class MainController {
         return modelAndView;
     }
     @RequestMapping("id{id}")
-    public ModelAndView person(@PathVariable String id){
+    public ModelAndView person(@PathVariable Long id){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("profile");
-        Person person = personDetailsManager.findById(Long.valueOf(id));
+        Person person = personDetailsManager.findById(id);
         modelAndView.addObject("person", person);
         modelAndView.addObject("message", new Message());
         return modelAndView;
@@ -95,10 +95,7 @@ public class MainController {
         return person;
     }
     @RequestMapping(value = "/add_message")
-    private String addMessage(@ModelAttribute("message") Message message, Principal p){
-//        Message m = new Message();
-//        m.setMessage("lalala");
-        System.out.println("pricipal_name:" + p.getName());
+    private String addMessage(@ModelAttribute("message") Message message){
 
         message.setDate(Calendar.getInstance());
         MyUser user = (MyUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -106,14 +103,12 @@ public class MainController {
         return "redirect:/feed";
     }
     @RequestMapping(value = "/del_message/{id}")
-    private String dellMessage(@PathVariable String id, Principal p){
-//        Message m = new Message();
-//        m.setMessage("lalala");
-        System.out.println("pricipal_name:" + p.getName());
+    private String dellMessage(@PathVariable Long id){
         MyUser user = (MyUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        personDetailsManager.delMessage(user.getPersonId(), Long.valueOf(id));
+        personDetailsManager.delMessage(user.getPersonId(), id);
         return "redirect:/feed";
     }
+
 
 
 

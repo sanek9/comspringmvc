@@ -258,3 +258,32 @@ h4 {
     border-radius: 4px;
     border-color: red;
 }
+.wrapper{
+    width: 100%;
+}
+.peoples{
+    
+}
+.peoples a{
+    font: 14px 'Oswald', sans-serif;
+    text-decoration: none;
+    color: #8f8f8f;
+}
+.people{
+    margin-bottom: 8px;
+    padding: 8px;
+    border: 1px solid #e7e7e7;
+    background: #efefef;
+    transition: 0.2s;
+    height: 80px;
+    
+    
+}
+.people img {
+    height: 100%;
+    display: inline-block;
+}
+.people .info{
+    display: inline-block;
+    
+}

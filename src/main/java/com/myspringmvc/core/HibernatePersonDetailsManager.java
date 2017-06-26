@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by sanek9 on 16.06.17.
@@ -89,6 +90,13 @@ public class HibernatePersonDetailsManager implements PersonDetailsManager, User
         query.setParameter("p_id", pid);
         Message result = (Message) query.getSingleResult();
         entityManager.remove(result);
+    }
+
+    @Transactional
+    public List<Person> getPersons() {
+        Query query = entityManager.createQuery("select p FROM Person p");
+        List list = query.getResultList();
+        return list;
     }
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

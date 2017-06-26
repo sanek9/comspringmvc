@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.security.Principal;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -60,6 +61,27 @@ public class MainController {
 
         return "redirect:/feed";
     }
+
+    @RequestMapping(value = "/peoples")
+    private ModelAndView peoples(){
+        ModelAndView modelAndView = new ModelAndView("peoples");
+        modelAndView.addObject("persons", personDetailsManager.getPersons());
+
+        return modelAndView;
+    }
+    @RequestMapping("id{id}")
+    public ModelAndView person(@PathVariable String id){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("profile");
+        Person person = personDetailsManager.findById(Long.valueOf(id));
+        modelAndView.addObject("person", person);
+        modelAndView.addObject("message", new Message());
+        return modelAndView;
+    }
+    @ModelAttribute("persons")
+    public List<Person> messages() {
+        return personDetailsManager.getPersons();
+    }
     private Person getPerson(){
         Person person = new Person();
         person.setFirstName("first"+new Random().nextInt());
@@ -79,7 +101,7 @@ public class MainController {
         System.out.println("pricipal_name:" + p.getName());
 
         message.setDate(Calendar.getInstance());
-        MyUser user = (MyUser) p;
+        MyUser user = (MyUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         personDetailsManager.addMessage(user.getPersonId(), message);
         return "redirect:/feed";
     }
@@ -92,7 +114,6 @@ public class MainController {
         personDetailsManager.delMessage(user.getPersonId(), Long.valueOf(id));
         return "redirect:/feed";
     }
-
 
 
 

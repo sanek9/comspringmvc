@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="templates :: common_header">
+    <link rel="stylesheet" href="../../resources/css/styles.css" />
+</head>
+<body>
+<div>
+    <div>
+        <div th:replace="templates :: header">
+        </div>
+        <div id="page">
+            <div id="navig" th:replace="templates :: navig">
+                <a href="">Фотографии</a>
+                <a href="">Друзья</a>
+                <a href="">Группы</a>
+                <a href="">Аудиозаписи</a>
+                <a href="">Видеозаписи</a>
+            </div>
+            <div class="wrapper">
+                <div class="peoples">
+                    <!--@thymesVar id="persons" type="List<com.myspringmvc.entity.Person>"-->
+                    <!--@thymesVar id="person" type="com.myspringmvc.entity.Person"-->
+                    <div th:each="person : ${persons}">
+
+                    <a href="profile.html"
+                       th:href="@{id{id}(id=${person.personId})}">
+                        <!--@thymesVar id="person" type="com.myspringmvc.entity.Person"-->
+                        <div class="people">
+                            <img src="../../resources/images/cot.jpg" th:src="@{/resources/images/cot.jpg}">
+                            <div class="info">
+                                <span th:text="${person.firstName}">Имя</span>
+                                <span th:text="${person.lastName}">Фамилия</span>
+                            </div>
+                        </div>
+                    </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

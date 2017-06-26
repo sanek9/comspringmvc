@@ -7,7 +7,7 @@ import com.myspringmvc.entity.Person;
  */
 public interface PersonDetailsService {
 
-    Person findById(String id);
+    Person findById(Long id);
 
 
 

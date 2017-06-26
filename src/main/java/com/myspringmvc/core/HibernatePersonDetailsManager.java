@@ -1,5 +1,6 @@
 package com.myspringmvc.core;
 
+import com.myspringmvc.MyUser;
 import com.myspringmvc.entity.Message;
 import com.myspringmvc.entity.Person;
 import com.myspringmvc.entity.Shadow;
@@ -29,11 +30,11 @@ public class HibernatePersonDetailsManager implements PersonDetailsManager, User
     @PersistenceContext
     private EntityManager entityManager;
     @Transactional(readOnly = true)
-    public Person findById(String id) {
+    public Person findById(Long id) {
         Person person;
         Query query = entityManager.createQuery("SELECT p from Person p " +
                 "where p.personId = :id");
-        query.setParameter("id", Long.valueOf(id));
+        query.setParameter("id", id);
         try {
             person = (Person) query.getSingleResult();
 
@@ -70,7 +71,7 @@ public class HibernatePersonDetailsManager implements PersonDetailsManager, User
 
     }
     @Transactional
-    public void addMessage(String id, Message message) {
+    public void addMessage(Long id, Message message) {
         Person person = findById(id);
         message.setPerson(person);
         System.out.println("message: "+message.getMessage());
@@ -81,11 +82,11 @@ public class HibernatePersonDetailsManager implements PersonDetailsManager, User
     }
 
     @Transactional
-    public void delMessage(String name, String id) {
+    public void delMessage(Long pid, Long mid) {
         Query query = entityManager.createQuery("select m FROM Message m " +
                 "where m.messageId = :m_id and m.person.personId = :p_id");
-        query.setParameter("m_id", Long.valueOf(id));
-        query.setParameter("p_id", Long.valueOf(name));
+        query.setParameter("m_id", mid);
+        query.setParameter("p_id", pid);
         Message result = (Message) query.getSingleResult();
         entityManager.remove(result);
     }
@@ -94,7 +95,7 @@ public class HibernatePersonDetailsManager implements PersonDetailsManager, User
 
         Shadow shadow = findShadowByEmailOrPhone(username);
 
-        return new User(String.valueOf(shadow.getPersonId()),
+        return new MyUser(shadow.getPersonId(),
                 shadow.getPassword(), new ArrayList<GrantedAuthority>());
     }
 //    public SessionFactory getSessionFactory() {

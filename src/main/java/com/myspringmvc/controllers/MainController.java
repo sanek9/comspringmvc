@@ -3,6 +3,7 @@ package com.myspringmvc.controllers;
 
 import javax.validation.Valid;
 
+import com.myspringmvc.MyUser;
 import com.myspringmvc.entity.Message;
 import com.myspringmvc.entity.Person;
 import com.myspringmvc.core.PersonDetailsManager;
@@ -43,9 +44,9 @@ public class MainController {
     @RequestMapping(value = "/feed")
     public ModelAndView hello(){
 
-        UserDetails userDetails =
-                (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Person person = personDetailsManager.findById(userDetails.getUsername());
+        MyUser user =
+                (MyUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Person person = personDetailsManager.findById(user.getPersonId());
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("profile");
         modelAndView.addObject("person", person);
@@ -78,7 +79,8 @@ public class MainController {
         System.out.println("pricipal_name:" + p.getName());
 
         message.setDate(Calendar.getInstance());
-        personDetailsManager.addMessage(p.getName(), message);
+        MyUser user = (MyUser) p;
+        personDetailsManager.addMessage(user.getPersonId(), message);
         return "redirect:/feed";
     }
     @RequestMapping(value = "/del_message/{id}")
@@ -86,8 +88,8 @@ public class MainController {
 //        Message m = new Message();
 //        m.setMessage("lalala");
         System.out.println("pricipal_name:" + p.getName());
-
-        personDetailsManager.delMessage(p.getName(), id);
+        MyUser user = (MyUser) p;
+        personDetailsManager.delMessage(user.getPersonId(), Long.valueOf(id));
         return "redirect:/feed";
     }
 

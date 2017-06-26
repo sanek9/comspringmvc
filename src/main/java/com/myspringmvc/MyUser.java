@@ -9,7 +9,14 @@ import java.util.Collection;
  * Created by sanek9 on 15.06.17.
  */
 public class MyUser extends User {
-    protected String email = "email";
+    protected Long personId;
+    public MyUser(Long personId,  String password, Collection<? extends GrantedAuthority> authorities) {
+        this(personId.toString(), personId, password, authorities);
+    }
+    public MyUser(String username,Long personId,  String password, Collection<? extends GrantedAuthority> authorities) {
+        super(username, password, authorities);
+        this.personId = personId;
+    }
     public MyUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
     }
@@ -18,7 +25,7 @@ public class MyUser extends User {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
     }
 
-    public String getEmail() {
-        return email;
+    public Long getPersonId() {
+        return personId;
     }
 }

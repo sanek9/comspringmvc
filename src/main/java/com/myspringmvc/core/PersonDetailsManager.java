@@ -12,7 +12,7 @@ public interface PersonDetailsManager extends PersonDetailsService {
     Shadow findShadowByEmailOrPhone(String s);
     void registerPerson(Person person);
 
-    void addMessage(String id, Message message);
+    void addMessage(Long id, Message message);
 
-    void delMessage(String name, String id);
+    void delMessage(Long pid, Long mid);
 }

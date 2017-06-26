@@ -110,7 +110,7 @@ public class MainController {
 //        Message m = new Message();
 //        m.setMessage("lalala");
         System.out.println("pricipal_name:" + p.getName());
-        MyUser user = (MyUser) p;
+        MyUser user = (MyUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         personDetailsManager.delMessage(user.getPersonId(), Long.valueOf(id));
         return "redirect:/feed";
     }

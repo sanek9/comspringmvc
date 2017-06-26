@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:fragment="common_header" >
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>Whitesquare</title>
+        <link rel="stylesheet" href="../../resources/css/styles.css" th:href="@{/resources/css/styles.css}" type="text/css" />
+    </head>
+    <body>
+        <div class="pan" th:fragment="pan_not_authorized">
+            <img src="../../resources/images/logo.png" th:src="@{/resources/images/logo.png}" class="fl_l">
+            <form method="GET" class="panel fl_r" action="reg" >
+                <button type="submit" >Регистрация</button>
+            </form>
+            <form method="POST" th:action="@{/login}" class="fl_r">
+                <input type="text" placeholder="логин" id="username" name="username">
+                <input type="password"  placeholder="пароль" id="password" name="password">
+                <button type="submit" >Вход</button>
+            </form>
+        </div>
+
+        <div class="pan" th:fragment="pan_authorized">
+            <img src="../../resources/images/logo.png" th:src="@{/resources/images/logo.png}" class="fl_l">
+            <form th:action="@{/logout}" method="post" class="panel fl_r" >
+                <button type="submit" >Выход</button>
+            </form>
+        </div>
+
+        <div th:fragment="header" th:replace=" :: ${#authorization.expression('isAuthenticated()')} ? 'pan_authorized' : 'pan_not_authorized'">
+        </div>
+
+        <div th:replace="${#authorization.expression('isAuthenticated()')} ? ~{templates :: pan_authorized} : ~{templates :: pan_not_authorized}">
+        </div>
+
+
+        <div id="navig" th:fragment="navig">
+            <a href="">Фотографии</a>
+            <a href="">Друзья</a>
+            <a href="">Группы</a>
+            <a href="">Аудиозаписи</a>
+            <a href="">Видеозаписи</a>
+        </div>
+
+
+        <div id="wall" class="" th:fragment="wall (messages, message)">
+            <!--@thymesVar id="message" type="com.myspringmvc.entity.Message"-->
+            <!--@thymesVar id="messages" type="List<com.myspringmvc.entity.Message>"-->
+
+            <div th:replace="wall :: new_post (message)"></div>
+            <div th:if="${!#lists.isEmpty(messages)}" th:replace="wall :: posts (${messages})"></div>
+
+        </div>
+        
+
+
+    </body>
+</html>

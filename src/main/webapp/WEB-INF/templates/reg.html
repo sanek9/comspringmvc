@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="templates :: common_header">
+        <link rel="stylesheet" href="../../resources/css/styles.css" th:href="@{/resources/css/styles.css}" type="text/css" />
+    </head>
+<body>
+    <div>
+        <div>
+            <div th:replace="templates :: header">
+            </div>
+            <div id="reg" class="">
+                <div>
+                    <form method="POST" th:action="@{/register}" th:object="${person}">
+                    <div class="line">
+                        <div class="reglabel">Имя</div>
+                        <input name="firstname" type="text" th:field="*{firstName}" th:errorclass="fieldError">
+                    </div>
+                    <div class="line">
+                        <div class="reglabel">Фамилия</div>
+                        <input name="lastname" type="text" th:field="*{lastName}" th:errorclass="fieldError">
+                    </div>
+                    <div class="line">
+                        <div  class="reglabel">Отчество</div>
+                        <input name="middlename" type="text" th:field="*{middleName}" th:errorclass="fieldError">
+                    </div>
+                    <div class="separ"></div>
+                    <div class="line">
+                        <div class="reglabel">Дата рожденья</div>
+                        <input name="birthday" type="date" th:field="*{birthday}" th:errorclass="fieldError">
+                    </div>
+                    <div class="line">
+                        <div class="reglabel">Пол</div>
+                        <input name="gender" type="radio" th:field="*{gender}" th:value="M" checked>
+                        <label style="margin-right: 10px;">Мужской</label>
+                        <input name="gender" type="radio" th:field="*{gender}" th:value="F">
+                        <label >Женский</label>
+                    </div>
+                    <div class="separ"></div>
+                    <div class="line">
+                        <div class="reglabel">Адрес эл.почты</div>
+                        <input name="email" type="email" th:field="*{email}" th:errorclass="fieldError">
+                    </div>
+                    <div class="line">
+                        <div class="reglabel">Моб. телефон</div>
+                        <input name="phone" type="tel" pattern="[0-9]{10}" th:field="*{phone}" th:errorclass="fieldError">
+                    </div>
+                    <div class="separ"></div>
+                    <div class="line">
+                        <div class="reglabel">Пароль</div>
+                        <input name="pass" class="" type="password"  th:field="*{password}" th:errorclass="fieldError">
+                    </div>
+                    <div class="line">
+                        <div class="reglabel">Повторите пароль</div>
+                        <input name="pass2" class="" type="password" required>
+                    </div>
+                    <div class="separ"></div>
+                    <div th:if="${#fields.hasAnyErrors()}">
+                        <p th:each="err : ${#fields.allErrors()}" th:text="${err}">...</p>
+                        <div class="separ"></div>
+                    </div>
+                    
+                    <button type="submit">Зарегестрироваться</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

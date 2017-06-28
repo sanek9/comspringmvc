@@ -102,21 +102,21 @@ public class ImageServiceImpl implements ImageService {
     }
 
     public InputStream loadPreview(String id) throws IOException {
-//        try{
-//            if(id==null) throw new NullPointerException();
+        try{
+            if(id==null) throw new NullPointerException();
             return storageService.load("64x64_"+id);
-//        }catch (NullPointerException e){
-//            return appContext.getResource("images/64x64_no_photo.jpg").getInputStream();
-//        }
+        }catch (NullPointerException e){
+            return appContext.getResource("/resources/images/64x64_no_photo.jpg").getInputStream();
+        }
     }
 
     public InputStream loadImage(String id) throws IOException {
-//            try {
-//                if(id==null) throw new NullPointerException();
+            try {
+                if(id==null) throw new NullPointerException();
                 return storageService.load(id);
-//
-//            }catch (NullPointerException e){
-//                return appContext.getResource("images/240x320_no_photo.jpg").getInputStream();
-//            }
+
+            }catch (NullPointerException e){
+                return appContext.getResource("/resources/images/240x320_no_photo.jpg").getInputStream();
+            }
     }
 }

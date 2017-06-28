@@ -41,26 +41,20 @@ public class ImageController {
     }
 
 
-    @GetMapping(path = "/photo")
-    private ModelAndView getNoPhoto(){
-        return new ModelAndView("redirect: /resources/images/240x320_no_photo.jpg");
-    }
+//    @GetMapping(path = "/photo")
+//    private ModelAndView getNoPhoto(){
+//        return new ModelAndView("redirect: /resources/images/240x320_no_photo.jpg");
+//    }
 
-    @GetMapping(path = "/preview")
-    private ModelAndView getNoPreview(){
-        return new ModelAndView("redirect: /resources/images/64x64_no_photo.jpg");
-    }
-    @GetMapping(path = "/photo/{id}")
+//    @GetMapping(path = "/preview")
+//    private ModelAndView getNoPreview(){
+//        return new ModelAndView("redirect: /resources/images/64x64_no_photo.jpg");
+//    }
+    @GetMapping(path = {"/photo/{id}", "photo"})
     @ResponseBody
-    private void getPhoto(@PathVariable String id, HttpServletResponse response) throws IOException {
+    private void getPhoto(@PathVariable(required = false) String id, HttpServletResponse response) throws IOException {
         InputStream photostream = null;
-        try {
-            photostream = imageService.loadImage(id);
-
-        }catch (NullPointerException e){
-            response.sendRedirect("/images/photo");
-            return;
-        }
+        photostream = imageService.loadImage(id);
 
         response.setContentType(MediaType.IMAGE_JPEG_VALUE);
 //        response.setContentLengthLong(photostream.length());
@@ -69,16 +63,13 @@ public class ImageController {
         photostream.close();
         outputStream.close();
     }
-    @GetMapping(path = "/preview/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(path = {"/preview/{id}","/preview"}, produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
-    private void getPreview(@PathVariable String id, HttpServletResponse response) throws IOException {
+    private void getPreview(@PathVariable(required = false)  String id, HttpServletResponse response) throws IOException {
         InputStream photostream = null;
-        try {
-            photostream = imageService.loadPreview(id);
-        }catch (NullPointerException e){
-            response.sendRedirect("/images/preview");
-            return;
-        }
+
+        photostream = imageService.loadPreview(id);
+
         response.setContentType(MediaType.IMAGE_JPEG_VALUE);
 //        response.setContentLengthLong(photostream.length());
         ServletOutputStream outputStream = response.getOutputStream();

@@ -99,6 +99,11 @@ public class HibernatePersonDetailsManager implements PersonDetailsManager, User
         return list;
     }
 
+    @Transactional
+    public void updatePerson(Person person) {
+        entityManager.merge(person);
+    }
+
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Shadow shadow = findShadowByEmailOrPhone(username);

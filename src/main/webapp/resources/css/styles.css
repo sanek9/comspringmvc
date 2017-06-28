@@ -220,9 +220,36 @@ h4 {
     
 }
 .img{
+    position: relative;
     padding: 8px;
     background: #efefef;
     border: 1px solid #e7e7e7;
+}
+.img .uphoto {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: none;
+
+}
+.img > img{
+    width: 240px;
+}
+.uphoto:hover:after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: url(../images/upload_photo.png) no-repeat center center ;
+}
+.img:hover .uphoto {
+    display: block;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, .3);
 }
 .separ{
     width: 100%;
@@ -241,6 +268,9 @@ h4 {
     width: 135px;
     color: #777;
 }
+
+
+
 .error{
     /* position: absolute; */
     /* right: 29%; */

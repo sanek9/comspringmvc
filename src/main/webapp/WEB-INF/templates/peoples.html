@@ -26,7 +26,7 @@
                        th:href="@{id{id}(id=${person.personId})}">
                         <!--@thymesVar id="person" type="com.myspringmvc.entity.Person"-->
                         <div class="people">
-                            <img src="../../resources/images/cot.jpg" th:src="@{/resources/images/cot.jpg}">
+                            <img src="../../resources/images/cot.jpg" th:src="@{/images/preview/{id}(id=${person.photoId})}">
                             <div class="info">
                                 <span th:text="${person.firstName}">Имя</span>
                                 <span th:text="${person.lastName}">Фамилия</span>

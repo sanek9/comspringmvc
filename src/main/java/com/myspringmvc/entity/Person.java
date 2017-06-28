@@ -59,8 +59,12 @@ public class Person {
     @Email
     private String email;
 
+    @Column(name = "photo_id")
+    private String photoId;
+
+
     @Transient
-    @NotEmpty
+//    @NotEmpty
     private String password;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "person")
@@ -145,6 +149,14 @@ public class Person {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhotoId() {
+        return photoId;
+    }
+
+    public void setPhotoId(String photoId) {
+        this.photoId = photoId;
     }
 }
 

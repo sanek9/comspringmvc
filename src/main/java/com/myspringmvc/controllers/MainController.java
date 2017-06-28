@@ -7,6 +7,7 @@ import com.myspringmvc.MyUser;
 import com.myspringmvc.entity.Message;
 import com.myspringmvc.entity.Person;
 import com.myspringmvc.core.PersonDetailsManager;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +19,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.security.Principal;
+import java.io.*;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -108,8 +108,6 @@ public class MainController {
         personDetailsManager.delMessage(user.getPersonId(), id);
         return "redirect:/feed";
     }
-
-
 
 
 }

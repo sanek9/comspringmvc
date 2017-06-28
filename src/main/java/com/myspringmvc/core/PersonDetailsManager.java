@@ -18,4 +18,6 @@ public interface PersonDetailsManager extends PersonDetailsService {
 
     void delMessage(Long pid, Long mid);
     List<Person> getPersons();
+
+    void updatePerson(Person person);
 }

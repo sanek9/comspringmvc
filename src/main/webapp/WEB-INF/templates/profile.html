@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="templates :: common_header">
+<head th:insert="templates :: common_header">
     <link rel="stylesheet" href="../../resources/css/styles.css" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
     <div>
@@ -19,8 +20,71 @@
                 <div class="wrapper">
                     <div class="clearfix">
                         <div class="img fl_l">
-                            <img th:src="@{/resources/images/cot.jpg}" width="240">
+                            <img id="photo" src="../../resources/images/cot.jpg" th:src="@{/images/photo/{id}(id=${person.photoId})}" >
+                            <div class="uphoto"></div>
+                            <form id="uphotoform" th:action="@{/images/uphoto(_csrf=${_csrf.token})}" method="POST" enctype="multipart/form-data">
+                            <!--<form id="uphotoform" th:action="@{/uphoto}" method="POST" enctype="multipart/form-data">-->
+                                <input name="file" class="input" type="file" accept="image/*" style="display:none;" >
+                            </form>
+                            <progress id="progressbar" value="0" max="100"></progress>
+                            
+                            
+                            <script type="text/javascript">
+                                $(document).ready(function(){
+                                    $('.uphoto').click(function(){
+                                        $('.img .input').click();
+                                        
+//                                        $(this).children('.input').click();
+                                    });
+                                    $('.img .input').on('change', function(){
+                                        //alert($(this).val());
+//                                        var formData = new FormData();
+//                                        formData.append('section', 'general');
+//                                        formData.append('action', 'previewImg');
+//                                        // Attach file
+//                                        formData.append('image', $('.img input[type=file]')[0].files[0]); 
+                                        var $form = $('#uphotoform'); // You need to use standard javascript object here
+                                        var formData = new FormData($form[0]);
+                                        var progressBar = $('#progressbar');
+                                        $.ajax({
+                                            url: $form.attr('action'),
+                                            type: $form.attr('method'),
+                                            data: formData,
+                                            dataType: 'json',
+//                                            type: 'POST',
+                                            contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+                                            processData: false, // NEEDED, DON'T OMIT THIS
+                                            
+                                            
+                                            xhr: function(){
+                                                var xhr = $.ajaxSettings.xhr();
+                                                xhr.upload.addEventListener('progress', function(evt){
+                                                    if(evt.lengthComputable) { // если известно количество байт
+                                                        // высчитываем процент загруженного
+                                                        var percentComplete = Math.ceil(evt.loaded / evt.total * 100);
+                                                        // устанавливаем значение в атрибут value тега <progress>
+                                                        // и это же значение альтернативным текстом для браузеров, не поддерживающих <progress>
+                                                        
+                                                        progressBar.val(percentComplete).text('Загружено ' + percentComplete + '%');
+                                                      }
+                                                }, false);
+                                                return xhr;
+                                            },
+                                            success: function(json){
+                                                alert(json);
+                                            }
+                                        });
+                                    })
+                                });
+                            </script>
+
+
                         </div>
+                        <form th:action="@{/images/uphoto(_csrf=${_csrf.token})}" method="POST" enctype="multipart/form-data">
+                            <!--<form id="uphotoform" th:action="@{/uphoto}" method="POST" enctype="multipart/form-data">-->
+                            <input name="file" type="file" accept="image/*" style="display:block;" >
+                            <button type="submit">submit</button>
+                        </form>
                         <div id="inform" class="fl_l">
                             <h4><b>
                                 <div th:text="${person.firstName}+' '+${person.lastName}">Имя Фамилия</div>

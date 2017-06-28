@@ -1,17 +1,15 @@
 package com.myspringmvc.core;
 
-import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
-import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
-import org.springframework.stereotype.Service;
-
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * Created by sanek9 on 27.06.17.
  */
 public interface ImageService {
-    void saveImage(String id, byte[] bytes);
-    String saveImage( byte[] bytes) throws IOException;
-    byte[] loadPreview(String id);
-    byte[] loadImage(String id);
+    void saveImage(String id, InputStream is);
+    String saveImage(InputStream is) throws IOException;
+    InputStream loadPreview(String id) throws IOException;
+    InputStream loadImage(String id) throws IOException;
 }

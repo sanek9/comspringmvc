@@ -20,7 +20,9 @@
         </div>
 
         <div class="pan" th:fragment="pan_authorized">
-            <img src="../../resources/images/logo.png" th:src="@{/resources/images/logo.png}" class="fl_l">
+            <a th:href="@{/}">
+                <img src="../../resources/images/logo.png" th:src="@{/resources/images/logo.png}"  class="fl_l">
+            </a>
             <form th:action="@{/logout}" method="post" class="panel fl_r" >
                 <button type="submit" >Выход</button>
             </form>

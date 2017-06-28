@@ -14,10 +14,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.imageio.stream.ImageInputStream;
+import javax.imageio.stream.MemoryCacheImageInputStream;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.Random;
 
 /**
@@ -31,30 +34,68 @@ public class ImageController {
 
     @Autowired
     private PersonDetailsManager personDetailsManager;
-    @RequestMapping()
+    @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    private String index(){
-        return "hello";
+    private UploadStatus index(){
+        return new UploadStatus("hello");
     }
 
 
-    @GetMapping(path = "/photo/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(path = "/photo")
+    private ModelAndView getNoPhoto(){
+        return new ModelAndView("redirect: /resources/images/240x320_no_photo.jpg");
+    }
+
+    @GetMapping(path = "/preview")
+    private ModelAndView getNoPreview(){
+        return new ModelAndView("redirect: /resources/images/64x64_no_photo.jpg");
+    }
+    @GetMapping(path = "/photo/{id}")
     @ResponseBody
-    private byte[] getPhoto(@PathVariable String id){
-        return imageService.loadImage(id);
+    private void getPhoto(@PathVariable String id, HttpServletResponse response) throws IOException {
+        InputStream photostream = null;
+        try {
+            photostream = imageService.loadImage(id);
+
+        }catch (NullPointerException e){
+            response.sendRedirect("/images/photo");
+            return;
+        }
+
+        response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+//        response.setContentLengthLong(photostream.length());
+        ServletOutputStream outputStream = response.getOutputStream();
+        IOUtils.copy(photostream, outputStream);
+        photostream.close();
+        outputStream.close();
     }
     @GetMapping(path = "/preview/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
-    private byte[] getPreview(@PathVariable String id){
-        return imageService.loadPreview(id);
+    private void getPreview(@PathVariable String id, HttpServletResponse response) throws IOException {
+        InputStream photostream = null;
+        try {
+            photostream = imageService.loadPreview(id);
+        }catch (NullPointerException e){
+            response.sendRedirect("/images/preview");
+            return;
+        }
+        response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+//        response.setContentLengthLong(photostream.length());
+        ServletOutputStream outputStream = response.getOutputStream();
+        IOUtils.copy(photostream, outputStream);
+        photostream.close();
+        outputStream.close();
     }
     @PostMapping(path = "/uphoto", produces = "application/json")
     @ResponseBody
     private UploadStatus uploadPhoto(@RequestParam("file") MultipartFile file){
 
+        System.out.println("upload photo");
         if(file.isEmpty()) return new UploadStatus("fail");
         try {
-            String id = imageService.saveImage(file.getBytes());
+            InputStream inputStream = file.getInputStream();
+            String id = imageService.saveImage(inputStream);
+            inputStream.close();
             MyUser user = (MyUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             Person person = personDetailsManager.findById(user.getPersonId());
             person.setPhotoId(id);

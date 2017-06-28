@@ -3,6 +3,7 @@ import com.myspringmvc.core.StorageService;
 import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -40,29 +41,32 @@ public class HibernateStorageServiceImplTest {
     @Autowired
     private StorageService storageService;
     @Test
-    public void testSave(){
+    public void testSave() throws IOException {
         byte[] bytes = new byte[]{1,2,3};
-        String id = storageService.save(bytes);
+        ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+        String id = storageService.save(bis);
         Assert.assertNotNull(id);
     }
 
 
     @Test
-    public void testLoad(){
+    public void testLoad() throws IOException {
         byte[] bytes = new byte[]{1,2,3};
+        ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+        String id = storageService.save(bis);
+        Assert.assertNotNull(id);
 
-        String id = storageService.save(bytes);
-
-        byte[] ret = storageService.load(id);
-
-        Assert.assertArrayEquals(bytes, ret);
+        InputStream inputStream = storageService.load(id);
+        Assert.assertArrayEquals(bytes, IOUtils.toByteArray(inputStream));
 //        outputStream.
     }
     @Test
-    public void testSave2(){
+    public void testSave2() throws IOException {
         byte[] bytes = new byte[]{1,2,3};
-        storageService.save("id", bytes);
-        byte[] ret = storageService.load("id");
-        Assert.assertArrayEquals(bytes, ret);
+        ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+        storageService.save("id",bis);
+
+        InputStream inputStream = storageService.load("id");
+        Assert.assertArrayEquals(bytes, IOUtils.toByteArray(inputStream));
     }
 }

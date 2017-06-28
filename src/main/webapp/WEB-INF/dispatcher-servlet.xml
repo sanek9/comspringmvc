@@ -9,7 +9,14 @@
     http://www.springframework.org/schema/tx
     http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <mvc:annotation-driven />
+    <!--<mvc:annotation-driven />-->
+    <mvc:annotation-driven>
+        <!--<mvc:message-converters>-->
+            <!--<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">-->
+                <!--&lt;!&ndash;<property name="objectMapper" ref="objectMapper"/>&ndash;&gt;-->
+            <!--</bean>-->
+        <!--</mvc:message-converters>-->
+    </mvc:annotation-driven>
     <tx:annotation-driven transaction-manager="transactionManager"/>
     <mvc:resources mapping="/resources/**" location="/resources/"/>
     <context:component-scan base-package="com.myspringmvc" />

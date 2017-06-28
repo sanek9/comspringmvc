@@ -1,12 +1,15 @@
 package com.myspringmvc.json;
 
+import java.io.Serializable;
+
 /**
  * Created by sanek9 on 28.06.17.
  */
-public class UploadStatus {
+public class UploadStatus implements Serializable{
     private String status;
     private String sourceId;
 
+    public UploadStatus(){}
     public UploadStatus(String status, String sourceId) {
         this.status = status;
         this.sourceId = sourceId;

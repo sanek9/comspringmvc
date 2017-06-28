@@ -20,13 +20,16 @@
                 <div class="wrapper">
                     <div class="clearfix">
                         <div class="img fl_l">
+
                             <img id="photo" src="../../resources/images/cot.jpg" th:src="@{/images/photo/{id}(id=${person.photoId})}" >
-                            <div class="uphoto"></div>
-                            <form id="uphotoform" th:action="@{/images/uphoto(_csrf=${_csrf.token})}" method="POST" enctype="multipart/form-data">
+
+                            <form sec:authorize="hasPermission(#vars['person'], 'write')"
+                                  id="uphotoform" th:action="@{/images/uphoto(_csrf=${_csrf.token})}" method="POST" enctype="multipart/form-data">
+                                <div class="uphoto"></div>
                             <!--<form id="uphotoform" th:action="@{/uphoto}" method="POST" enctype="multipart/form-data">-->
                                 <input name="file" class="input" type="file" accept="image/*" style="display:none;" >
                             </form>
-                            <progress id="progressbar" value="0" max="100"></progress>
+                            <!--<progress id="progressbar" value="0" max="100"></progress>-->
                             
                             
                             <script type="text/javascript">
@@ -56,22 +59,23 @@
                                             processData: false, // NEEDED, DON'T OMIT THIS
                                             
                                             
-                                            xhr: function(){
-                                                var xhr = $.ajaxSettings.xhr();
-                                                xhr.upload.addEventListener('progress', function(evt){
-                                                    if(evt.lengthComputable) { // если известно количество байт
-                                                        // высчитываем процент загруженного
-                                                        var percentComplete = Math.ceil(evt.loaded / evt.total * 100);
-                                                        // устанавливаем значение в атрибут value тега <progress>
-                                                        // и это же значение альтернативным текстом для браузеров, не поддерживающих <progress>
-                                                        
-                                                        progressBar.val(percentComplete).text('Загружено ' + percentComplete + '%');
-                                                      }
-                                                }, false);
-                                                return xhr;
-                                            },
+//                                            xhr: function(){
+//                                                var xhr = $.ajaxSettings.xhr();
+//                                                xhr.upload.addEventListener('progress', function(evt){
+//                                                    if(evt.lengthComputable) { // если известно количество байт
+//                                                        // высчитываем процент загруженного
+//                                                        var percentComplete = Math.ceil(evt.loaded / evt.total * 100);
+//                                                        // устанавливаем значение в атрибут value тега <progress>
+//                                                        // и это же значение альтернативным текстом для браузеров, не поддерживающих <progress>
+//
+//                                                        progressBar.val(percentComplete).text('Загружено ' + percentComplete + '%');
+//                                                      }
+//                                                }, false);
+//                                                return xhr;
+//                                            },
                                             success: function(json){
-                                                alert(json);
+//                                                json.sourceId
+                                                $('#photo').attr('src', "/images/photo/"+json.sourceId);
                                             }
                                         });
                                     })
@@ -80,11 +84,6 @@
 
 
                         </div>
-                        <form th:action="@{/images/uphoto(_csrf=${_csrf.token})}" method="POST" enctype="multipart/form-data">
-                            <!--<form id="uphotoform" th:action="@{/uphoto}" method="POST" enctype="multipart/form-data">-->
-                            <input name="file" type="file" accept="image/*" style="display:block;" >
-                            <button type="submit">submit</button>
-                        </form>
                         <div id="inform" class="fl_l">
                             <h4><b>
                                 <div th:text="${person.firstName}+' '+${person.lastName}">Имя Фамилия</div>
@@ -95,52 +94,52 @@
                                     <div class="labeled fl_l "
                                          th:text="${#calendars.format(person.birthday, 'dd MMM yyyy')}">01.01.2000</div>
                                 </div>
-                                <div class="miniblock">
-                                    <div class="label fl_l">Родной город:</div>
-                                    <div class="labeled fl_l ">Молодечно</div>
-                                </div>
-                                <div class="miniblock">
-                                    <div class="label fl_l">Место учебы:</div>
-                                    <div class="labeled fl_l ">ПГУ</div>
-                                </div>
+                                <!--<div class="miniblock">-->
+                                    <!--<div class="label fl_l">Родной город:</div>-->
+                                    <!--<div class="labeled fl_l ">Молодечно</div>-->
+                                <!--</div>-->
+                                <!--<div class="miniblock">-->
+                                    <!--<div class="label fl_l">Место учебы:</div>-->
+                                    <!--<div class="labeled fl_l ">ПГУ</div>-->
+                                <!--</div>-->
                             </div>
                             <h4><b>Контактная информация</b></h4>
                             <div class="miniblock clearfix">
-                                <div class="miniblock">
-                                    <div class="label fl_l">Город:</div>
-                                    <div class="labeled fl_l ">Новополоцк</div>
-                                </div>
+                                <!--<div class="miniblock">-->
+                                    <!--<div class="label fl_l">Город:</div>-->
+                                    <!--<div class="labeled fl_l ">Новополоцк</div>-->
+                                <!--</div>-->
                                 <div class="miniblock fl_l" >
                                     <div class="label fl_l">Моб. телефон:</div>
                                     <div class="labeled fl_l " th:text="${person.phone}">1234567890</div>
                                 </div>
-                                <div class="miniblock fl_l" >
-                                    <div class="label fl_l">Доп. телефон:</div>
-                                    <div class="labeled fl_l ">Информация скрыта</div>
-                                </div>
+                                <!--<div class="miniblock fl_l" >-->
+                                    <!--<div class="label fl_l">Доп. телефон:</div>-->
+                                    <!--<div class="labeled fl_l ">Информация скрыта</div>-->
+                                <!--</div>-->
                             </div>
-                            <h4><b>Образование</b></h4>
-                            <div class="miniblock clearfix">
-                                <div class="miniblock">
-                                    <div class="label fl_l">Вуз:</div>
-                                    <div class="labeled fl_l ">ПГУ</div>
-                                </div>
-                                <div class="miniblock fl_l" >
-                                    <div class="label fl_l">Школа:</div>
-                                    <div class="labeled fl_l ">Средняя школа №2</div>
-                                </div>
-                                <div class="miniblock fl_l" >
-                                    <div class="label fl_l">Колледж:</div>
-                                    <div class="labeled fl_l ">МГПТК</div>
-                                </div>
-                            </div>
-                            <h4><b>Жизненная позиция</b></h4>
-                            <div class="miniblock clearfix">
-                                <div class="miniblock">
-                                    <div class="label fl_l">Мировоззрение:</div>
-                                    <div class="labeled fl_l ">Православие</div>
-                                </div>
-                            </div>
+                            <!--<h4><b>Образование</b></h4>-->
+                            <!--<div class="miniblock clearfix">-->
+                                <!--<div class="miniblock">-->
+                                    <!--<div class="label fl_l">Вуз:</div>-->
+                                    <!--<div class="labeled fl_l ">ПГУ</div>-->
+                                <!--</div>-->
+                                <!--<div class="miniblock fl_l" >-->
+                                    <!--<div class="label fl_l">Школа:</div>-->
+                                    <!--<div class="labeled fl_l ">Средняя школа №2</div>-->
+                                <!--</div>-->
+                                <!--<div class="miniblock fl_l" >-->
+                                    <!--<div class="label fl_l">Колледж:</div>-->
+                                    <!--<div class="labeled fl_l ">МГПТК</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<h4><b>Жизненная позиция</b></h4>-->
+                            <!--<div class="miniblock clearfix">-->
+                                <!--<div class="miniblock">-->
+                                    <!--<div class="label fl_l">Мировоззрение:</div>-->
+                                    <!--<div class="labeled fl_l ">Православие</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
                         </div>
                     </div>
                     <sec:authorize ifAllGranted="ROLE_SUPERVISOR" >
